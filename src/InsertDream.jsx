@@ -151,8 +151,8 @@ export default function InsertDream() {
     setTypedText("");
 
     const base = process.env.NODE_ENV === "production"
-      ? "/.netlify/functions/interpret"
-      : "http://localhost:3000/interpret";
+      ? "/interpret-rulebased"
+      : "http://localhost:5000/interpret-rulebased";
 
     try {
       console.log('Sending fetch...');
