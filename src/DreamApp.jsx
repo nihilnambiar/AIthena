@@ -492,7 +492,10 @@ export default function DreamApp() {
             }}
             onDreamClick={dream => setSelectedDream(dream)}
             isPremium={!!user?.premium}
-            onCommunity={() => setShowCommunity(true)}
+            onCommunity={() => {
+              setShowCommunity(true);
+              setDrawerOpen(false);
+            }}
             journalIconRef={journalIconRef}
           />
         </>
