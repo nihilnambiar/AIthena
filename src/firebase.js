@@ -39,7 +39,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Force session persistence for all devices
-setPersistence(auth, browserSessionPersistence);
+setPersistence(auth, browserLocalPersistence);
 
 const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
