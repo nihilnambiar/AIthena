@@ -27,6 +27,8 @@ export const AuthProvider = ({ children }) => {
           if (snap.exists()) {
             console.log("[AuthContext] User doc exists:", snap.data());
             userData = { ...userData, ...snap.data() };
+            // Always set hasLoggedIn: true on login
+            await setDoc(userRef, { hasLoggedIn: true }, { merge: true });
           } else {
             console.log("[AuthContext] User doc does not exist, creating...");
             await setDoc(userRef, {
@@ -35,6 +37,7 @@ export const AuthProvider = ({ children }) => {
               email: userData.email,
               photo: userData.photo,
               premium: false,
+              hasLoggedIn: true,
             });
           }
         } catch (e) { console.error("[AuthContext] Firestore error:", e); }

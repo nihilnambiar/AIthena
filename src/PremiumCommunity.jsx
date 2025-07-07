@@ -5,6 +5,7 @@ import { useAuth } from "./AuthContext";
 import { db, collection, addDoc, getDocs, query, orderBy, doc, updateDoc, getDoc, serverTimestamp, onSnapshot, startAfter, deleteDoc } from "./firebase";
 import { increment, arrayUnion, arrayRemove, limit, where, getCountFromServer, Timestamp } from "firebase/firestore";
 import confetti from "canvas-confetti";
+import { Tooltip } from "@headlessui/react";
 
 const PremiumCommunity = ({ onClose }) => {
   const { user } = useAuth();
@@ -291,19 +292,26 @@ const PremiumCommunity = ({ onClose }) => {
       .map(([topic]) => topic);
   }, [posts]);
 
-  const [communityStats, setCommunityStats] = useState({
-    activeMembers: 0,
-    postsToday: 0,
-    dreamsAnalyzed: 0,
-    totalLikes: 0
+  const [activeStats, setActiveStats] = useState({
+    total: 0,
+    premium: 0,
+    nonPremium: 0
   });
 
   // Fetch accurate community stats
   useEffect(() => {
     const fetchStats = async () => {
-      // 1. Active Members (premium users)
-      const usersSnap = await getDocs(query(collection(db, "users"), where("premium", "==", true)));
-      const activeMembers = usersSnap.size;
+      // Fetch all users who have ever logged in
+      const usersSnap = await getDocs(query(collection(db, "users"), where("hasLoggedIn", "==", true)));
+      const total = usersSnap.size;
+      let premium = 0;
+      let nonPremium = 0;
+      usersSnap.forEach(doc => {
+        const data = doc.data();
+        if (data.premium) premium++;
+        else nonPremium++;
+      });
+      setActiveStats({ total, premium, nonPremium });
       // 2. Posts Today
       const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
       const postsSnap = await getDocs(collection(db, "community_posts"));
@@ -321,7 +329,7 @@ const PremiumCommunity = ({ onClose }) => {
         const dreamsSnap = await getDocs(collection(db, "users", uid, "dreams"));
         dreamsAnalyzed += dreamsSnap.size;
       }
-      setCommunityStats({ activeMembers, postsToday, dreamsAnalyzed, totalLikes });
+      setCommunityStats({ activeMembers: total, postsToday, dreamsAnalyzed, totalLikes });
     };
     fetchStats();
   }, [posts.length]);
@@ -916,12 +924,24 @@ const PremiumCommunity = ({ onClose }) => {
               
               <div className="space-y-4 mb-8">
                 <motion.div 
-                  className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl p-4 border border-white/10"
+                  className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl p-4 border border-white/10 relative group"
                   whileHover={{ scale: 1.02 }}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-white/70">Active Members</span>
-                    <span className="font-semibold text-purple-300">{communityStats.activeMembers.toLocaleString()}</span>
+                    <span className="font-semibold text-purple-300 cursor-pointer group-hover:underline">
+                      <Tooltip
+                        as="div"
+                        className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-xl bg-black/90 p-4 text-white text-sm shadow-xl border border-white/10 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200"
+                        open={undefined}
+                      >
+                        <div className="mb-2 font-semibold text-purple-200">Active Members Breakdown</div>
+                        <div className="mb-1">Premium users: <span className="font-bold text-yellow-300">{activeStats.premium}</span></div>
+                        <div className="mb-1">Non-premium users: <span className="font-bold text-green-300">{activeStats.nonPremium}</span></div>
+                        <div>Total users: <span className="font-bold text-blue-300">{activeStats.total}</span></div>
+                      </Tooltip>
+                      {activeStats.total.toLocaleString()}
+                    </span>
                   </div>
                 </motion.div>
                 

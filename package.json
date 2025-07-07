@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@headlessui/react": "^2.2.4",
     "body-parser": "^2.2.0",
     "canvas-confetti": "^1.9.3",
     "cors": "^2.8.5",
