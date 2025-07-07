@@ -329,7 +329,8 @@ export default function DreamApp() {
   const [error, setError] = useState("");
   const [dreams, setDreams] = useState([]);
   const [journalLoading, setJournalLoading] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  // Set drawerOpen default based on screen width (closed on mobile, open on desktop)
+  const [drawerOpen, setDrawerOpen] = useState(() => window.innerWidth > 768);
   const [selectedDream, setSelectedDream] = useState(null);
   const [showCommunity, setShowCommunity] = useState(false);
   const [moodOpen, setMoodOpen] = useState(false);
@@ -472,21 +473,29 @@ export default function DreamApp() {
   return (
     <div className="min-h-screen flex relative overflow-hidden">
       <MoodBackgrounds mood={mood} />
-      {/* SideDrawer */}
+      {/* SideDrawer and overlay */}
       {drawerOpen && (
-        <SideDrawer
-          user={user}
-          dreams={dreams}
-          onClose={() => setDrawerOpen(false)}
-          onLogout={(e) => {
-            if (e) e.stopPropagation();
-            setShowLogoutConfirm(true);
-          }}
-          onDreamClick={dream => setSelectedDream(dream)}
-          isPremium={!!user?.premium}
-          onCommunity={() => setShowCommunity(true)}
-          journalIconRef={journalIconRef}
-        />
+        <>
+          {/* Overlay: clicking it closes the drawer */}
+          <div
+            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+            onClick={() => setDrawerOpen(false)}
+            aria-label="Close menu"
+          />
+          <SideDrawer
+            user={user}
+            dreams={dreams}
+            onClose={() => setDrawerOpen(false)}
+            onLogout={(e) => {
+              if (e) e.stopPropagation();
+              setShowLogoutConfirm(true);
+            }}
+            onDreamClick={dream => setSelectedDream(dream)}
+            isPremium={!!user?.premium}
+            onCommunity={() => setShowCommunity(true)}
+            journalIconRef={journalIconRef}
+          />
+        </>
       )}
       {/* Share Modal */}
       {showShareCard && shareCardDream && (
