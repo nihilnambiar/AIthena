@@ -120,13 +120,3 @@ const SideDrawer = ({ onClose, onLogout, user, dreams = [], onDreamClick, isPrem
 };
 
 export default SideDrawer;
-
-/* Add this to your global CSS or Tailwind config for the gradient animation */
-@keyframes gradient-x {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-.animate-gradient-x {
-  background-size: 200% 200%;
-  animation: gradient-x 3s ease-in-out infinite;
-}
