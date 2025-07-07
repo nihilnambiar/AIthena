@@ -49,15 +49,17 @@ const LoginPage = () => {
     setLoading(true);
     setError("");
     try {
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile) {
+      // Always try popup first
+      await signInWithPopup(auth, provider);
+    } catch (popupErr) {
+      // If popup fails (e.g., on mobile), fallback to redirect
+      console.warn("Popup login failed, falling back to redirect:", popupErr);
+      try {
         await signInWithRedirect(auth, provider);
-      } else {
-        await signInWithPopup(auth, provider);
+      } catch (redirectErr) {
+        setError("Google login failed. Please try a different browser or disable incognito/private mode.");
+        console.error("Google login failed:", redirectErr);
       }
-      // No manual redirect here; rely on AuthContext and route logic
-    } catch (err) {
-      setError(err.message);
     } finally {
       setLoading(false);
     }
