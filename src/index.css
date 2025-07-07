@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,62 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Animated, moving mood backgrounds */
+@keyframes mood-peaceful-move {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-mood-peaceful {
+  background-size: 200% 200%;
+  animation: mood-peaceful-move 18s ease-in-out infinite;
+}
+@keyframes mood-weird-move {
+  0%, 100% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+  50% { background-position: 100% 100%; filter: hue-rotate(30deg); }
+}
+.animate-mood-weird {
+  background-size: 200% 200%;
+  animation: mood-weird-move 20s ease-in-out infinite;
+}
+@keyframes mood-scary-move {
+  0%, 100% { background-position: 0% 100%; filter: brightness(1); }
+  50% { background-position: 100% 0%; filter: brightness(0.8); }
+}
+.animate-mood-scary {
+  background-size: 200% 200%;
+  animation: mood-scary-move 16s ease-in-out infinite;
+}
+@keyframes mood-romantic-move {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-mood-romantic {
+  background-size: 200% 200%;
+  animation: mood-romantic-move 18s ease-in-out infinite;
+}
+@keyframes mood-confusing-move {
+  0%, 100% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+  50% { background-position: 100% 100%; filter: hue-rotate(60deg); }
+}
+.animate-mood-confusing {
+  background-size: 200% 200%;
+  animation: mood-confusing-move 22s ease-in-out infinite;
+}
+@keyframes mood-funny-move {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-mood-funny {
+  background-size: 200% 200%;
+  animation: mood-funny-move 16s ease-in-out infinite;
+}
+@keyframes mood-spiritual-move {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+.animate-mood-spiritual {
+  background-size: 200% 200%;
+  animation: mood-spiritual-move 20s ease-in-out infinite;
 }

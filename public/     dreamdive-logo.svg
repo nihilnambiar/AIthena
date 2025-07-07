@@ -1,0 +1,18 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" rx="60" fill="#181A3D"/>
+  <path d="M80 60a30 30 0 1 1-30-30" fill="url(#moon)" />
+  <path d="M40 90c10-10 30-10 40 0" stroke="url(#wave)" stroke-width="4" fill="none" />
+  <circle cx="90" cy="40" r="3" fill="#fffbe6"/>
+  <circle cx="75" cy="30" r="2" fill="#fffbe6"/>
+  <circle cx="100" cy="55" r="1.5" fill="#fffbe6"/>
+  <defs>
+    <linearGradient id="moon" x1="50" y1="30" x2="80" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffe066"/>
+      <stop offset="1" stop-color="#ffd700"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="40" y1="90" x2="80" y2="90" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6ec6ff"/>
+      <stop offset="1" stop-color="#3f51b5"/>
+    </linearGradient>
+  </defs>
+</svg>

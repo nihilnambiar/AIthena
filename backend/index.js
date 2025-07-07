@@ -3,12 +3,17 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const nodemailer = require("nodemailer");
+const axios = require("axios");
+const { Groq } = require('groq-sdk');
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+console.log("Loaded GROQ_API_KEY:", process.env.GROQ_API_KEY ? "[HIDDEN]" : "undefined");
 
 // Robust CORS for dev
 app.use(cors({
@@ -31,53 +36,46 @@ app.post("/interpret", async (req, res) => {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
+    console.log("Calling Groq with key:", process.env.GROQ_API_KEY ? "[HIDDEN]" : "undefined");
     let prompt;
-    
+    let systemMessage = undefined;
     if (isDetailed) {
-      // Advanced analysis for premium users
-      prompt = `You are an expert dream analyst with deep knowledge of psychology, symbolism, and Jungian archetypes. Provide a comprehensive analysis of this dream: "${dream}" considering the user's mood: "${mood}".
-
-Please structure your response with the following sections:
-
-1. **SYMBOLISM ANALYSIS** (2-3 paragraphs)
-   - Identify key symbols, objects, colors, and actions
-   - Explain their psychological and cultural meanings
-   - Connect symbols to universal archetypes
-
-2. **EMOTIONAL TREND ANALYSIS** (2-3 paragraphs)
-   - Analyze the emotional undertones and patterns
-   - Connect to the user's current mood and life circumstances
-   - Identify recurring emotional themes
-
-3. **PSYCHOLOGICAL INTERPRETATION** (2-3 paragraphs)
-   - Deep dive into subconscious messages
-   - Explore potential unresolved issues or desires
-   - Connect to personal growth opportunities
-
-4. **REAL-LIFE CONNECTIONS** (1-2 paragraphs)
-   - Suggest possible connections to waking life
-   - Identify patterns or situations that might be reflected
-
-5. **ACTIONABLE INSIGHTS** (1-2 paragraphs)
-   - Provide practical advice or next steps
-   - Suggest areas for self-reflection or growth
-   - Offer positive affirmations or mindset shifts
-
-Make the analysis insightful, compassionate, and empowering. Use clear language while maintaining depth.`;
+      prompt = `You are a friendly, supportive dream analyst. Analyze this dream: "${dream}" and provide a detailed, positive, and mood-matching interpretation. The user's mood is: "${mood}". Structure your response with:\n\n1. Key symbols and their meanings\n2. Emotional trends and connections to the mood\n3. Supportive, actionable advice\n\nBe empathetic, concise, and uplifting.`;
+      systemMessage = undefined;
     } else {
-      // Basic analysis for free users
-      prompt = `You are a dream interpreter. Analyze the following dream: "${dream}" and provide a meaningful interpretation considering the user's mood: "${mood}". Keep it concise but insightful, focusing on the main themes and possible meanings.`;
+      prompt = `Analyze this dream: "${dream}" and provide a strictly short (1-2 sentences), friendly, and mood-matching interpretation that is apt for the user's mood: "${mood}". DO NOT provide more than 2 sentences. DO NOT use lists, sections, or bullet points. Be concise, positive, and empathetic.`;
+      systemMessage = "You are a friendly, concise dream interpreter. Your response must be strictly 1-2 sentences, never more. Do not use lists, sections, or bullet points. Be brief, positive, and match the user's mood.";
     }
+    const messages = [
+      ...(systemMessage ? [{ role: "system", content: systemMessage }] : []),
+      { role: "user", content: prompt }
+    ];
+    // Log prompt and system message for debugging
+    console.log("Prompt sent to Groq:", prompt);
+    if (systemMessage) console.log("System message:", systemMessage);
+    const chatCompletion = await groq.chat.completions.create({
+      messages,
+      model: "meta-llama/llama-4-scout-17b-16e-instruct",
+      temperature: 1,
+      max_completion_tokens: isDetailed ? 8192 : 256,
+      top_p: 1,
+      stream: false,
+      stop: null
+    });
+    let output = chatCompletion.choices[0]?.message?.content?.trim() || "";
+    // Post-process: truncate to 2 sentences for non-premium
+    if (!isDetailed) {
+      const sentences = output.match(/[^.!?]+[.!?]+/g) || [];
+      output = sentences.slice(0, 2).join(" ").trim();
+    }
+    console.log("[PROMPT SENT]", prompt);
+    console.log("[SYSTEM MESSAGE]", systemMessage);
+    console.log("[LLM OUTPUT]", output);
 
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-    const interpretation = response.text();
-
+    const interpretation = output;
     res.json({ interpretation });
   } catch (error) {
-    console.error("Gemini API Error:", error.message);
+    console.error("Groq SDK Error:", error.response?.data || error.message);
     res.status(500).json({ error: "Something went wrong while interpreting your dream." });
   }
 });
