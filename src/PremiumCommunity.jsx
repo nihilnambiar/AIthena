@@ -5,7 +5,7 @@ import { useAuth } from "./AuthContext";
 import { db, collection, addDoc, getDocs, query, orderBy, doc, updateDoc, getDoc, serverTimestamp, onSnapshot, startAfter, deleteDoc } from "./firebase";
 import { increment, arrayUnion, arrayRemove, limit, where, getCountFromServer, Timestamp } from "firebase/firestore";
 import confetti from "canvas-confetti";
-import { Tooltip } from "@headlessui/react";
+// Remove: import { Tooltip } from "@headlessui/react";
 
 const PremiumCommunity = ({ onClose }) => {
   const { user } = useAuth();
@@ -929,17 +929,14 @@ const PremiumCommunity = ({ onClose }) => {
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-white/70">Active Members</span>
-                    <span className="font-semibold text-purple-300 cursor-pointer group-hover:underline">
-                      <Tooltip
-                        as="div"
-                        className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-xl bg-black/90 p-4 text-white text-sm shadow-xl border border-white/10 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200"
-                        open={undefined}
-                      >
+                    <span className="font-semibold text-purple-300 cursor-pointer group-hover:underline relative">
+                      {/* Custom Tooltip */}
+                      <div className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-xl bg-black/90 p-4 text-white text-sm shadow-xl border border-white/10 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200">
                         <div className="mb-2 font-semibold text-purple-200">Active Members Breakdown</div>
                         <div className="mb-1">Premium users: <span className="font-bold text-yellow-300">{activeStats.premium}</span></div>
                         <div className="mb-1">Non-premium users: <span className="font-bold text-green-300">{activeStats.nonPremium}</span></div>
                         <div>Total users: <span className="font-bold text-blue-300">{activeStats.total}</span></div>
-                      </Tooltip>
+                      </div>
                       {activeStats.total.toLocaleString()}
                     </span>
                   </div>
