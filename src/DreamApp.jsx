@@ -391,7 +391,7 @@ export default function DreamApp() {
     setDetailedInterpretation(""); // Clear detailed interpretation on new dream
     try {
       // Always request short interpretation for initial submit
-      const response = await fetch("/interpret", {
+      const response = await fetch("/api/interpret", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ dream, mood, isDetailed: false })
@@ -452,7 +452,7 @@ export default function DreamApp() {
     setError("");
     try {
       // Use last interpreted dream and mood
-      const response = await fetch("/interpret", {
+      const response = await fetch("/api/interpret", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ dream: lastDream, mood: lastMood, isDetailed: true })
