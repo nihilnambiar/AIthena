@@ -297,6 +297,12 @@ const PremiumCommunity = ({ onClose }) => {
     premium: 0,
     nonPremium: 0
   });
+  const [communityStats, setCommunityStats] = useState({
+    activeMembers: 0,
+    postsToday: 0,
+    dreamsAnalyzed: 0,
+    totalLikes: 0
+  });
 
   // Fetch accurate community stats
   useEffect(() => {
