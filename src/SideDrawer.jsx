@@ -1,7 +1,7 @@
 // src/SideDrawer.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import { LogOut, Crown, X } from "lucide-react";
+import { LogOut, Crown, X, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PremiumBadge from "./PremiumBadge.jsx";
 
@@ -48,10 +48,13 @@ const SideDrawer = ({ onClose, onLogout, user, dreams = [], onDreamClick, isPrem
         {isPremium && (
           <button
             onClick={onCommunity}
-            className="w-full mb-6 py-3 rounded-2xl bg-gradient-to-r from-pink-400/80 via-purple-400/80 to-blue-400/80 hover:from-pink-500/90 hover:to-blue-500/90 text-white font-bold text-lg shadow-xl flex items-center justify-center gap-2 border border-white/30 outline-none transition backdrop-blur-[6px]"
+            className="w-full mb-6 py-3 rounded-2xl bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 text-white font-extrabold text-lg shadow-xl flex items-center justify-center gap-3 border-2 border-transparent outline-none transition-all duration-200 backdrop-blur-[6px] relative overflow-hidden group hover:scale-105 hover:border-purple-300 focus:ring-2 focus:ring-purple-400"
             style={{boxShadow:'0 2px 16px 0 rgba(120,120,255,0.10)', backdropFilter:'blur(8px)'}}
           >
-            <span className="text-xl">👥</span> The Community
+            {/* Animated gradient overlay */}
+            <span className="absolute inset-0 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 opacity-60 blur-lg group-hover:opacity-80 transition-all duration-300 animate-gradient-x" style={{zIndex:0}} />
+            <Users className="w-6 h-6 text-white drop-shadow-lg relative z-10" />
+            <span className="relative z-10 tracking-wide">The Community</span>
           </button>
         )}
         {/* Dream Journal */}
@@ -117,3 +120,13 @@ const SideDrawer = ({ onClose, onLogout, user, dreams = [], onDreamClick, isPrem
 };
 
 export default SideDrawer;
+
+/* Add this to your global CSS or Tailwind config for the gradient animation */
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease-in-out infinite;
+}
