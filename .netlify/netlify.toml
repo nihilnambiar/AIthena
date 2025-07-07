@@ -25,6 +25,7 @@ functions = "netlify/functions"
 [build.services]
 
 [functions]
+directory = "netlify/functions"
 
 [functions."*"]
 
