@@ -262,7 +262,7 @@ const Pricing = () => {
                 Our support team is here to help you choose the right plan for your needs.
               </p>
               <a 
-                href="mailto:support@dreamdive.app"
+                href="mailto:nihil@thedreamdive.com"
                 className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg"
               >
                 Contact Support

@@ -141,8 +141,8 @@ const RefundPolicy = () => {
                       <h3 className="text-xl font-semibold text-white mb-2">Method 2: Contact Support</h3>
                       <p className="text-white/80">
                         If you're unable to cancel through your account, please contact our support team at{' '}
-                        <a href="mailto:support@dreamdive.app" className="text-blue-400 underline hover:text-blue-300">
-                          support@dreamdive.app
+                        <a href="mailto:nihil@thedreamdive.com" className="text-blue-400 underline hover:text-blue-300">
+                          nihil@thedreamdive.com
                         </a>
                         {' '}and we'll assist you with the cancellation process.
                       </p>
@@ -185,7 +185,7 @@ const RefundPolicy = () => {
                     please don't hesitate to contact us.
                   </p>
                   <a 
-                    href="mailto:support@dreamdive.app"
+                    href="mailto:nihil@thedreamdive.com"
                     className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg"
                   >
                     Contact Support
