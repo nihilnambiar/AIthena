@@ -9,6 +9,7 @@ import MoodBackgrounds from "./MoodBackgrounds.jsx";
 import FloatingIcons from "./FloatingIcons.jsx";
 import { useAuth } from "./AuthContext";
 import { Crown, Users, Share2, Award, Sparkles, Zap, Check, Star, ArrowRight, X } from "lucide-react";
+import { PremiumFooter } from "./PremiumFooter";
 
 const features = [
   { label: "Unlimited dream interpretations", premium: true, icon: "🌙", description: "No daily limits on dream analysis" },
@@ -32,8 +33,8 @@ const Premium = ({ setUser }) => {
 
   const handlePayment = useCallback(async () => {
     const monthlyPrice = 1000; // $10.00 in cents
-    const annualPrice = 960; // $8.00/month * 12 = $96.00 in cents
-    const amount = selectedPlan === 'annual' ? annualPrice * 12 : monthlyPrice;
+    const annualPrice = 8400; // $84.00 in cents (7 * 12 = $84)
+    const amount = selectedPlan === 'annual' ? annualPrice : monthlyPrice;
     
     setIsProcessing(true);
     
@@ -98,10 +99,10 @@ const Premium = ({ setUser }) => {
       savings: 0
     },
     annual: {
-      price: 8,
-      total: 96,
+      price: 7,
+      total: 84,
       period: 'month',
-      savings: 24
+      savings: 36
     }
   }), []);
 
@@ -449,6 +450,7 @@ const Premium = ({ setUser }) => {
           </div>
         </motion.div>
       </motion.div>
+      <PremiumFooter />
     </div>
   );
 };

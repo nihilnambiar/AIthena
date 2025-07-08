@@ -12,6 +12,8 @@ import LoginPage from "./LoginPage.jsx";
 import SignUpPage from "./SignUpPage.jsx";
 import Terms from "./Terms.jsx";
 import Privacy from "./Privacy.jsx";
+import RefundPolicy from "./RefundPolicy.jsx";
+import Pricing from "./Pricing.jsx";
 import { LegalFooter } from "./LegalFooter";
 import { AuthProvider, useAuth } from "./AuthContext";
 import SharedDreamLanding from "./SharedDreamLanding.jsx";
@@ -82,6 +84,8 @@ function AppRoutes() {
       <Route path="/signup" element={!user ? <SignUpPage /> : <Navigate to="/dream" replace />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
+      <Route path="/refund-policy" element={<RefundPolicy />} />
+      <Route path="/pricing" element={<Pricing />} />
       <Route path="/share/dream/:id" element={<SharedDreamLanding />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
@@ -100,7 +104,7 @@ function AppContent() {
   }
 
   const showPoeticFooter = location.pathname === "/dream";
-  const showLegalFooter = location.pathname === "/" || location.pathname === "/premium";
+  const showLegalFooter = location.pathname === "/"; // Removed "/premium" since it has its own footer
 
   return (
     <div className="App" key={user ? user.uid : "nouser"}>
@@ -131,6 +135,8 @@ function AppContent() {
         />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/share/dream/:id" element={<SharedDreamLanding />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
