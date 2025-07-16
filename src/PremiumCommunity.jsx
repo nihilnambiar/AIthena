@@ -493,7 +493,7 @@ const PremiumCommunity = ({ onClose }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-3xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden border border-white/20 text-white relative"
+          className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-3xl shadow-2xl w-full max-w-7xl h-[90vh] overflow-hidden border border-white/20 text-white relative flex flex-col"
         >
           {/* Success Overlay */}
           <AnimatePresence>
@@ -558,7 +558,7 @@ const PremiumCommunity = ({ onClose }) => {
           </AnimatePresence>
 
           {/* Header */}
-          <div className="bg-gradient-to-r from-purple-600/30 to-blue-600/30 text-white p-6 border-b border-white/10">
+          <div className="bg-gradient-to-r from-purple-600/30 to-blue-600/30 text-white p-6 border-b border-white/10 flex-shrink-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-3 rounded-xl">
@@ -578,450 +578,479 @@ const PremiumCommunity = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="p-4 border-b border-white/10 bg-black/20">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search posts, users, or topics..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-black/30 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
+          {/* Search and Tabs */}
+          <div className="bg-black/20 border-b border-white/10 flex-shrink-0">
+            {/* Search Bar */}
+            <div className="p-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                <input
+                  type="text"
+                  placeholder="Search posts, users, or topics..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 bg-black/30 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+              </div>
+            </div>
+
+            {/* Tabs */}
+            <div className="flex border-t border-white/10">
+              <motion.button
+                onClick={() => setActiveTab('all')}
+                className={`flex-1 py-4 px-6 text-sm font-medium transition relative ${
+                  activeTab === 'all' 
+                    ? 'text-purple-300' 
+                    : 'text-white/60 hover:text-white'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                All Posts
+                {activeTab === 'all' && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-300"
+                  />
+                )}
+              </motion.button>
+              <motion.button
+                onClick={() => setActiveTab('my-posts')}
+                className={`flex-1 py-4 px-6 text-sm font-medium transition relative ${
+                  activeTab === 'my-posts' 
+                    ? 'text-purple-300' 
+                    : 'text-white/60 hover:text-white'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                My Posts
+                {activeTab === 'my-posts' && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-300"
+                  />
+                )}
+              </motion.button>
+              <motion.button
+                onClick={() => setActiveTab('trending')}
+                className={`flex-1 py-4 px-6 text-sm font-medium transition relative ${
+                  activeTab === 'trending' 
+                    ? 'text-purple-300' 
+                    : 'text-white/60 hover:text-white'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <TrendingUp className="w-4 h-4 inline mr-1" />
+                Trending
+                {activeTab === 'trending' && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-300"
+                  />
+                )}
+              </motion.button>
             </div>
           </div>
 
-          {/* Tabs */}
-          <div className="flex border-b border-white/20 bg-black/10">
-            <motion.button
-              onClick={() => setActiveTab('all')}
-              className={`flex-1 py-3 px-4 text-sm font-medium transition relative ${
-                activeTab === 'all' 
-                  ? 'text-purple-300' 
-                  : 'text-white/60 hover:text-white'
-              }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              All Posts
-              {activeTab === 'all' && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-300"
-                />
-              )}
-            </motion.button>
-            <motion.button
-              onClick={() => setActiveTab('my-posts')}
-              className={`flex-1 py-3 px-4 text-sm font-medium transition relative ${
-                activeTab === 'my-posts' 
-                  ? 'text-purple-300' 
-                  : 'text-white/60 hover:text-white'
-              }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              My Posts
-              {activeTab === 'my-posts' && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-300"
-                />
-              )}
-            </motion.button>
-            <motion.button
-              onClick={() => setActiveTab('trending')}
-              className={`flex-1 py-3 px-4 text-sm font-medium transition relative ${
-                activeTab === 'trending' 
-                  ? 'text-purple-300' 
-                  : 'text-white/60 hover:text-white'
-              }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <TrendingUp className="w-4 h-4 inline mr-1" />
-              Trending
-              {activeTab === 'trending' && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-300"
-                />
-              )}
-            </motion.button>
-          </div>
-
-          {/* Content */}
-          <div className="flex h-[60vh]">
+          {/* Main Content Area */}
+          <div className="flex flex-1 overflow-hidden">
             {/* Posts Feed */}
-            <div className="flex-1 overflow-y-auto p-6">
-              {/* New Post Input */}
-              <motion.div 
-                className="bg-gradient-to-br from-black/30 to-black/20 rounded-2xl p-6 mb-6 border border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="bg-gradient-to-r from-purple-500 to-blue-500 text-white p-3 rounded-full text-sm font-bold">
-                    {user?.name?.charAt(0) || "U"}
-                  </div>
-                  <div className="flex-1">
-                    <textarea
-                      value={newPost}
-                      onChange={(e) => setNewPost(e.target.value)}
-                      placeholder="Share your dream experience or ask the community..."
-                      className="w-full p-4 bg-black/30 border border-white/20 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-white/50"
-                      rows="3"
-                    />
-                    <div className="flex items-center justify-between mt-3">
-                      <div className="flex items-center gap-2 text-sm text-white/70">
-                        <Crown className="w-4 h-4 text-yellow-500" />
-                        Premium Member
+            <div className="flex-1 overflow-y-auto bg-black/10">
+              <div className="p-6">
+                {/* New Post Input */}
+                <motion.div 
+                  className="bg-gradient-to-br from-black/30 to-black/20 rounded-2xl p-6 mb-6 border border-white/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="bg-gradient-to-r from-purple-500 to-blue-500 text-white p-3 rounded-full text-sm font-bold">
+                      {user?.name?.charAt(0) || "U"}
+                    </div>
+                    <div className="flex-1">
+                      <textarea
+                        value={newPost}
+                        onChange={(e) => setNewPost(e.target.value)}
+                        placeholder="Share your dream experience or ask the community..."
+                        className="w-full p-4 bg-black/30 border border-white/20 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-white/50"
+                        rows="3"
+                      />
+                      <div className="flex items-center justify-between mt-3">
+                        <div className="flex items-center gap-2 text-sm text-white/70">
+                          <Crown className="w-4 h-4 text-yellow-500" />
+                          Premium Member
+                        </div>
+                        <motion.button
+                          onClick={handleSubmitPost}
+                          disabled={loading || !newPost.trim()}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-purple-400/50 disabled:to-blue-400/50 text-white px-6 py-2 rounded-xl font-medium transition flex items-center gap-2 shadow-lg"
+                        >
+                          <Send className="w-4 h-4" />
+                          {loading ? 'Posting...' : 'Post'}
+                        </motion.button>
                       </div>
-                      <motion.button
-                        onClick={handleSubmitPost}
-                        disabled={loading || !newPost.trim()}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-purple-400/50 disabled:to-blue-400/50 text-white px-6 py-2 rounded-xl font-medium transition flex items-center gap-2 shadow-lg"
-                      >
-                        <Send className="w-4 h-4" />
-                        {loading ? 'Posting...' : 'Post'}
-                      </motion.button>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
 
-              {/* Posts List */}
-              <div className="space-y-6">
-                <AnimatePresence>
-                  {filteredPosts.map((post, index) => (
-                    <motion.div
-                      key={post.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="bg-gradient-to-br from-black/30 to-black/20 border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-white/30"
+                {/* Posts List or Empty State */}
+                {filteredPosts.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-20">
+                    <span className="text-6xl mb-6 animate-bounce-slow">💬</span>
+                    <h3 className="text-2xl font-bold mb-2 text-white text-center">No posts yet</h3>
+                    <p className="text-white/70 text-center mb-6 max-w-xs">Be the first to start a conversation! Share your dream, ask a question, or inspire the community.</p>
+                    <button
+                      className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold px-8 py-3 rounded-xl transition shadow-lg flex items-center gap-2 text-lg"
+                      onClick={() => document.querySelector('textarea')?.focus()}
                     >
-                      {/* Post Header */}
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <div className="text-3xl">{post.avatar}</div>
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <span className="font-semibold text-white">{post.author}</span>
-                              {post.isPremium && (
-                                <motion.div
-                                  animate={{ rotate: [0, 10, -10, 0] }}
-                                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                >
-                                  <Crown className="w-4 h-4 text-yellow-500" />
-                                </motion.div>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-2 text-sm text-white/60">
-                              <Clock className="w-3 h-3" />
-                              <span>{post.timestamp}</span>
+                      <Send className="w-5 h-5" />
+                      Start Posting
+                    </button>
+                  </div>
+                ) : (
+                  <AnimatePresence>
+                    {filteredPosts.map((post, index) => (
+                      <motion.div
+                        key={post.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="bg-gradient-to-br from-black/30 to-black/20 border border-white/20 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-white/30 mb-6"
+                      >
+                        {/* Post Header */}
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-3">
+                            <div className="text-3xl">{post.avatar}</div>
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="font-semibold text-white">{post.author}</span>
+                                {post.isPremium && (
+                                  <motion.div
+                                    animate={{ rotate: [0, 10, -10, 0] }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                  >
+                                    <Crown className="w-4 h-4 text-yellow-500" />
+                                  </motion.div>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2 text-sm text-white/60">
+                                <Clock className="w-3 h-3" />
+                                <span>{post.timestamp}</span>
+                              </div>
                             </div>
                           </div>
+                          {/* Edit/Delete buttons - only show for post author */}
+                          {post.userId === user?.uid && (
+                            <div className="flex items-center gap-2">
+                              {editingPostId === post.id ? (
+                                <>
+                                  <motion.button
+                                    onClick={() => handleSaveEdit(post.id)}
+                                    className="text-green-400 hover:text-green-300 p-1 rounded transition"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                  >
+                                    <Send className="w-4 h-4" />
+                                  </motion.button>
+                                  <motion.button
+                                    onClick={handleCancelEdit}
+                                    className="text-gray-400 hover:text-gray-300 p-1 rounded transition"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                  >
+                                    <X className="w-4 h-4" />
+                                  </motion.button>
+                                </>
+                              ) : (
+                                <>
+                                  <motion.button
+                                    onClick={() => handleEditPost(post.id)}
+                                    className="text-blue-400 hover:text-blue-300 p-1 rounded transition"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                  >
+                                    <Edit className="w-4 h-4" />
+                                  </motion.button>
+                                  <motion.button
+                                    onClick={() => setShowDeleteConfirm(post.id)}
+                                    className="text-red-400 hover:text-red-300 p-1 rounded transition"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </motion.button>
+                                </>
+                              )}
+                            </div>
+                          )}
                         </div>
-                        
-                        {/* Edit/Delete buttons - only show for post author */}
-                        {post.userId === user?.uid && (
-                          <div className="flex items-center gap-2">
-                            {editingPostId === post.id ? (
-                              <>
-                                <motion.button
-                                  onClick={() => handleSaveEdit(post.id)}
-                                  className="text-green-400 hover:text-green-300 p-1 rounded transition"
-                                  whileHover={{ scale: 1.1 }}
-                                  whileTap={{ scale: 0.9 }}
-                                >
-                                  <Send className="w-4 h-4" />
-                                </motion.button>
-                                <motion.button
-                                  onClick={handleCancelEdit}
-                                  className="text-gray-400 hover:text-gray-300 p-1 rounded transition"
-                                  whileHover={{ scale: 1.1 }}
-                                  whileTap={{ scale: 0.9 }}
-                                >
-                                  <X className="w-4 h-4" />
-                                </motion.button>
-                              </>
+                        {/* Post Content */}
+                        {editingPostId === post.id ? (
+                          <div className="mb-4">
+                            <textarea
+                              value={editContent}
+                              onChange={(e) => setEditContent(e.target.value)}
+                              className="w-full p-4 bg-black/30 border border-white/20 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
+                              rows="3"
+                            />
+                          </div>
+                        ) : (
+                          <p className="text-white/90 mb-4 leading-relaxed">{post.content}</p>
+                        )}
+                        {/* Tags */}
+                        {post.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {post.tags.map((tag, index) => (
+                              <motion.span
+                                key={index}
+                                className="bg-purple-400/20 text-purple-200 px-3 py-1 rounded-full text-xs font-medium cursor-pointer hover:bg-purple-400/30 transition"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setSelectedTopic(selectedTopic === tag ? null : tag)}
+                              >
+                                #{tag}
+                              </motion.span>
+                            ))}
+                          </div>
+                        )}
+                        {/* Post Actions */}
+                        <div className="flex items-center justify-between pt-4 border-t border-white/20">
+                          <div className="flex items-center gap-6">
+                            <motion.button
+                              onClick={() => handleLike(post.id)}
+                              className={`flex items-center gap-2 transition ${
+                                post.isLiked ? 'text-red-400' : 'text-white/60 hover:text-red-400'
+                              }`}
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                            >
+                              <Heart className={`w-4 h-4${post.isLiked ? ' fill-current' : ''}`} />
+                              <span className="text-sm">{post.likes}</span>
+                            </motion.button>
+                            <motion.button 
+                              className="flex items-center gap-2 text-white/60 hover:text-blue-400 transition"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={() => handleToggleComments(post.id)}
+                            >
+                              <MessageCircle className="w-4 h-4" />
+                              <span className="text-sm">{comments[post.id]?.length ?? post.comments}</span>
+                            </motion.button>
+                            <motion.button 
+                              className="flex items-center gap-2 text-white/60 hover:text-green-400 transition"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={() => handleShare(post.id)}
+                            >
+                              <Share2 className="w-4 h-4" />
+                              <span className="text-sm">Share</span>
+                            </motion.button>
+                          </div>
+                        </div>
+                        {/* Comments Section */}
+                        {openComments[post.id] && (
+                          <div className="mt-4 bg-black/30 rounded-xl p-4 border border-white/10">
+                            {commentsLoading[post.id] ? (
+                              <div className="text-white/60 text-sm">Loading comments...</div>
                             ) : (
                               <>
-                                <motion.button
-                                  onClick={() => handleEditPost(post.id)}
-                                  className="text-blue-400 hover:text-blue-300 p-1 rounded transition"
-                                  whileHover={{ scale: 1.1 }}
-                                  whileTap={{ scale: 0.9 }}
-                                >
-                                  <Edit className="w-4 h-4" />
-                                </motion.button>
-                                <motion.button
-                                  onClick={() => setShowDeleteConfirm(post.id)}
-                                  className="text-red-400 hover:text-red-300 p-1 rounded transition"
-                                  whileHover={{ scale: 1.1 }}
-                                  whileTap={{ scale: 0.9 }}
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </motion.button>
+                                <div className="space-y-3 mb-3">
+                                  {comments[post.id]?.length > 0 ? comments[post.id].map(c => (
+                                    <div key={c.id} className="flex items-start gap-3">
+                                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-400/40 to-blue-400/40 flex items-center justify-center text-white font-bold text-lg">
+                                        {c.author?.[0]?.toUpperCase() || 'U'}
+                                      </div>
+                                      <div className="flex-1">
+                                        <div className="font-semibold text-white/90 text-sm flex items-center gap-2">{c.author || 'Anonymous'}
+                                          {c.userId === user?.uid && editingComment.commentId !== c.id && (
+                                            <>
+                                              <button onClick={() => handleEditComment(post.id, c)} className="ml-2 text-xs text-blue-400 hover:text-blue-600">Edit</button>
+                                              <button onClick={() => handleDeleteComment(post.id, c.id)} className="ml-2 text-xs text-red-400 hover:text-red-600">Delete</button>
+                                            </>
+                                          )}
+                                          {c.userId === user?.uid && editingComment.commentId === c.id && (
+                                            <>
+                                              <button onClick={handleCancelEditComment} className="ml-2 text-xs text-gray-400 hover:text-gray-600">Cancel</button>
+                                              <button onClick={() => handleSaveEditComment(post.id, c.id)} className="ml-2 text-xs text-green-400 hover:text-green-600" disabled={!editingCommentValue.trim()}>Save</button>
+                                            </>
+                                          )}
+                                        </div>
+                                        {editingComment.commentId === c.id ? (
+                                          <input
+                                            type="text"
+                                            value={editingCommentValue}
+                                            onChange={e => setEditingCommentValue(e.target.value)}
+                                            className="w-full p-2 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none mb-1 mt-1"
+                                            onKeyDown={e => { if (e.key === 'Enter' && editingCommentValue.trim()) handleSaveEditComment(post.id, c.id); }}
+                                          />
+                                        ) : (
+                                          <div className="text-white/80 text-base mb-1">{c.text}</div>
+                                        )}
+                                        <div className="text-xs text-white/40">{c.createdAt?.toDate ? c.createdAt.toDate().toLocaleString() : ''}</div>
+                                      </div>
+                                    </div>
+                                  )) : (
+                                    <div className="text-white/60 text-sm">No comments yet.</div>
+                                  )}
+                                </div>
+                                {commentsHasMore[post.id] && (
+                                  <button
+                                    onClick={() => handleLoadMoreComments(post.id)}
+                                    className="w-full py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-semibold mt-2"
+                                  >
+                                    Load more
+                                  </button>
+                                )}
+                                <div className="flex items-center gap-2 mt-2">
+                                  <input
+                                    type="text"
+                                    value={commentInputs[post.id] || ''}
+                                    onChange={e => handleCommentInput(post.id, e.target.value)}
+                                    className="flex-1 p-2 rounded-lg bg-white/10 text-white placeholder-white/50 border border-white/20 focus:outline-none"
+                                    placeholder="Add a comment..."
+                                    onKeyDown={e => { if (e.key === 'Enter') handleSubmitComment(post.id); }}
+                                  />
+                                  <button
+                                    onClick={() => handleSubmitComment(post.id)}
+                                    className="px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold transition"
+                                    disabled={!commentInputs[post.id]?.trim()}
+                                  >
+                                    Post
+                                  </button>
+                                </div>
                               </>
                             )}
                           </div>
                         )}
-                      </div>
-
-                      {/* Post Content */}
-                      {editingPostId === post.id ? (
-                        <div className="mb-4">
-                          <textarea
-                            value={editContent}
-                            onChange={(e) => setEditContent(e.target.value)}
-                            className="w-full p-4 bg-black/30 border border-white/20 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
-                            rows="3"
-                          />
-                        </div>
-                      ) : (
-                        <p className="text-white/90 mb-4 leading-relaxed">{post.content}</p>
-                      )}
-
-                      {/* Tags */}
-                      {post.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {post.tags.map((tag, index) => (
-                            <motion.span
-                              key={index}
-                              className="bg-purple-400/20 text-purple-200 px-3 py-1 rounded-full text-xs font-medium cursor-pointer hover:bg-purple-400/30 transition"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                              onClick={() => setSelectedTopic(selectedTopic === tag ? null : tag)}
-                            >
-                              #{tag}
-                            </motion.span>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Post Actions */}
-                      <div className="flex items-center justify-between pt-4 border-t border-white/20">
-                        <div className="flex items-center gap-6">
-                          <motion.button
-                            onClick={() => handleLike(post.id)}
-                            className={`flex items-center gap-2 transition ${
-                              post.isLiked ? 'text-red-400' : 'text-white/60 hover:text-red-400'
-                            }`}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Heart className={`w-4 h-4${post.isLiked ? ' fill-current' : ''}`} />
-                            <span className="text-sm">{post.likes}</span>
-                          </motion.button>
-                          <motion.button 
-                            className="flex items-center gap-2 text-white/60 hover:text-blue-400 transition"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => handleToggleComments(post.id)}
-                          >
-                            <MessageCircle className="w-4 h-4" />
-                            <span className="text-sm">{comments[post.id]?.length ?? post.comments}</span>
-                          </motion.button>
-                          <motion.button 
-                            className="flex items-center gap-2 text-white/60 hover:text-green-400 transition"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => handleShare(post.id)}
-                          >
-                            <Share2 className="w-4 h-4" />
-                            <span className="text-sm">Share</span>
-                          </motion.button>
-                        </div>
-                      </div>
-
-                      {/* Comments Section */}
-                      {openComments[post.id] && (
-                        <div className="mt-4 bg-black/30 rounded-xl p-4 border border-white/10">
-                          {commentsLoading[post.id] ? (
-                            <div className="text-white/60 text-sm">Loading comments...</div>
-                          ) : (
-                            <>
-                              <div className="space-y-3 mb-3">
-                                {comments[post.id]?.length > 0 ? comments[post.id].map(c => (
-                                  <div key={c.id} className="flex items-start gap-3">
-                                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-400/40 to-blue-400/40 flex items-center justify-center text-white font-bold text-lg">
-                                      {c.author?.[0]?.toUpperCase() || 'U'}
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="font-semibold text-white/90 text-sm flex items-center gap-2">{c.author || 'Anonymous'}
-                                        {c.userId === user?.uid && editingComment.commentId !== c.id && (
-                                          <>
-                                            <button onClick={() => handleEditComment(post.id, c)} className="ml-2 text-xs text-blue-400 hover:text-blue-600">Edit</button>
-                                            <button onClick={() => handleDeleteComment(post.id, c.id)} className="ml-2 text-xs text-red-400 hover:text-red-600">Delete</button>
-                                          </>
-                                        )}
-                                        {c.userId === user?.uid && editingComment.commentId === c.id && (
-                                          <>
-                                            <button onClick={handleCancelEditComment} className="ml-2 text-xs text-gray-400 hover:text-gray-600">Cancel</button>
-                                            <button onClick={() => handleSaveEditComment(post.id, c.id)} className="ml-2 text-xs text-green-400 hover:text-green-600" disabled={!editingCommentValue.trim()}>Save</button>
-                                          </>
-                                        )}
-                                      </div>
-                                      {editingComment.commentId === c.id ? (
-                                        <input
-                                          type="text"
-                                          value={editingCommentValue}
-                                          onChange={e => setEditingCommentValue(e.target.value)}
-                                          className="w-full p-2 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none mb-1 mt-1"
-                                          onKeyDown={e => { if (e.key === 'Enter' && editingCommentValue.trim()) handleSaveEditComment(post.id, c.id); }}
-                                        />
-                                      ) : (
-                                        <div className="text-white/80 text-base mb-1">{c.text}</div>
-                                      )}
-                                      <div className="text-xs text-white/40">{c.createdAt?.toDate ? c.createdAt.toDate().toLocaleString() : ''}</div>
-                                    </div>
-                                  </div>
-                                )) : (
-                                  <div className="text-white/60 text-sm">No comments yet.</div>
-                                )}
-                              </div>
-                              {commentsHasMore[post.id] && (
-                                <button
-                                  onClick={() => handleLoadMoreComments(post.id)}
-                                  className="w-full py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-semibold mt-2"
-                                >
-                                  Load more
-                                </button>
-                              )}
-                              <div className="flex items-center gap-2 mt-2">
-                                <input
-                                  type="text"
-                                  value={commentInputs[post.id] || ''}
-                                  onChange={e => handleCommentInput(post.id, e.target.value)}
-                                  className="flex-1 p-2 rounded-lg bg-white/10 text-white placeholder-white/50 border border-white/20 focus:outline-none"
-                                  placeholder="Add a comment..."
-                                  onKeyDown={e => { if (e.key === 'Enter') handleSubmitComment(post.id); }}
-                                />
-                                <button
-                                  onClick={() => handleSubmitComment(post.id)}
-                                  className="px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold transition"
-                                  disabled={!commentInputs[post.id]?.trim()}
-                                >
-                                  Post
-                                </button>
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      )}
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                )}
               </div>
             </div>
 
             {/* Sidebar */}
-            <div className="w-80 bg-black/20 p-6 border-l border-white/20 overflow-y-auto max-h-[60vh]">
-              <h3 className="font-semibold text-white mb-6 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-purple-400" />
-                Community Stats
-              </h3>
-              
-              <div className="space-y-4 mb-8">
-                <motion.div 
-                  className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl p-4 border border-white/10 relative group"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-white/70">Active Members</span>
-                    <span className="font-semibold text-purple-300 cursor-pointer group-hover:underline relative">
-                      {/* Custom Tooltip */}
-                      <div className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-xl bg-black/90 p-4 text-white text-sm shadow-xl border border-white/10 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200">
-                        <div className="mb-2 font-semibold text-purple-200">Active Members Breakdown</div>
-                        <div className="mb-1">Premium users: <span className="font-bold text-yellow-300">{activeStats.premium}</span></div>
-                        <div className="mb-1">Non-premium users: <span className="font-bold text-green-300">{activeStats.nonPremium}</span></div>
-                        <div>Total users: <span className="font-bold text-blue-300">{activeStats.total}</span></div>
-                      </div>
-                      {activeStats.total.toLocaleString()}
-                    </span>
-                  </div>
-                </motion.div>
+            <div className="w-96 bg-black/30 border-l border-white/20 overflow-y-auto flex-shrink-0">
+              <div className="p-6">
+                <h3 className="font-semibold text-white mb-6 flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-purple-400" />
+                  Community Stats
+                </h3>
                 
-                <motion.div 
-                  className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-white/10"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-white/70">Posts Today</span>
-                    <span className="font-semibold text-green-300">{communityStats.postsToday}</span>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl p-4 border border-white/10"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-white/70">Dreams Analyzed</span>
-                    <span className="font-semibold text-blue-300">{communityStats.dreamsAnalyzed.toLocaleString()}</span>
-                  </div>
-                </motion.div>
+                <div className="space-y-4 mb-8">
+                  <motion.div 
+                    className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl p-4 border border-white/10 relative group"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/70">Active Members</span>
+                      <span className="font-semibold text-purple-300 cursor-pointer group-hover:underline relative">
+                        {/* Custom Tooltip */}
+                        <div className="absolute left-1/2 top-full z-50 mt-2 w-64 -translate-x-1/2 rounded-xl bg-black/90 p-4 text-white text-sm shadow-xl border border-white/10 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200">
+                          <div className="mb-2 font-semibold text-purple-200">Active Members Breakdown</div>
+                          <div className="mb-1">Premium users: <span className="font-bold text-yellow-300">{activeStats.premium}</span></div>
+                          <div className="mb-1">Non-premium users: <span className="font-bold text-green-300">{activeStats.nonPremium}</span></div>
+                          <div>Total users: <span className="font-bold text-blue-300">{activeStats.total}</span></div>
+                        </div>
+                        {activeStats.total.toLocaleString()}
+                      </span>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-white/10"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/70">Posts Today</span>
+                      <span className="font-semibold text-green-300">{communityStats.postsToday}</span>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl p-4 border border-white/10"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/70">Dreams Analyzed</span>
+                      <span className="font-semibold text-blue-300">{communityStats.dreamsAnalyzed.toLocaleString()}</span>
+                    </div>
+                  </motion.div>
 
-                <motion.div 
-                  className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-xl p-4 border border-white/10"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-white/70">Total Likes</span>
-                    <span className="font-semibold text-yellow-300">{communityStats.totalLikes.toLocaleString()}</span>
-                  </div>
-                </motion.div>
-              </div>
-
-              <div className="mb-6">
-                <h4 className="font-semibold text-white mb-4 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-purple-400" />
-                  Popular Topics
-                </h4>
-                <div className="space-y-2">
-                  {popularTopics.map((topic) => (
-                    <motion.div 
-                      key={topic} 
-                      className={`rounded-xl p-3 cursor-pointer transition ${
-                        selectedTopic === topic 
-                          ? 'bg-purple-500/30 border border-purple-400/50' 
-                          : 'bg-black/30 hover:bg-black/50 border border-white/10'
-                      }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => setSelectedTopic(selectedTopic === topic ? null : topic)}
-                    >
-                      <span className="text-sm text-white/80">#{topic}</span>
-                    </motion.div>
-                  ))}
+                  <motion.div 
+                    className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-xl p-4 border border-white/10"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/70">Total Likes</span>
+                      <span className="font-semibold text-yellow-300">{communityStats.totalLikes.toLocaleString()}</span>
+                    </div>
+                  </motion.div>
                 </div>
-              </div>
 
-              {/* Clear Filters */}
-              {(searchQuery || selectedTopic) && (
-                <motion.button
-                  onClick={() => {
-                    setSearchQuery("");
-                    setSelectedTopic(null);
-                  }}
-                  className="w-full bg-white/10 hover:bg-white/20 text-white py-2 rounded-xl transition flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Filter className="w-4 h-4" />
-                  Clear Filters
-                </motion.button>
-              )}
+                <div className="mb-6">
+                  <h4 className="font-semibold text-white mb-4 flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4 text-purple-400" />
+                    Popular Topics
+                  </h4>
+                  <div className="space-y-2">
+                    {popularTopics.map((topic) => (
+                      <motion.div 
+                        key={topic} 
+                        className={`rounded-xl p-3 cursor-pointer transition ${
+                          selectedTopic === topic 
+                            ? 'bg-purple-500/30 border border-purple-400/50' 
+                            : 'bg-black/30 hover:bg-black/50 border border-white/10'
+                        }`}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setSelectedTopic(selectedTopic === topic ? null : topic)}
+                      >
+                        <span className="text-sm text-white/80">#{topic}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Clear Filters */}
+                {(searchQuery || selectedTopic) && (
+                  <motion.button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setSelectedTopic(null);
+                    }}
+                    className="w-full bg-white/10 hover:bg-white/20 text-white py-2 rounded-xl transition flex items-center justify-center gap-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Filter className="w-4 h-4" />
+                    Clear Filters
+                  </motion.button>
+                )}
+              </div>
             </div>
           </div>
         </motion.div>
       </motion.div>
+      <style>{`
+@media (max-width: 768px) {
+  .premium-community-modal {
+    border-radius: 1.5rem !important;
+    max-width: 98vw !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+  }
+  .premium-community-sidebar {
+    border-radius: 0 0 1.5rem 1.5rem !important;
+    margin-top: 0.5rem !important;
+  }
+}
+`}</style>
     </AnimatePresence>
   );
 };

@@ -103,8 +103,7 @@ function AppContent() {
     return <SplashScreen />;
   }
 
-  const showPoeticFooter = location.pathname === "/dream";
-  const showLegalFooter = location.pathname === "/"; // Removed "/premium" since it has its own footer
+  const showLegalFooter = location.pathname === "/"; // Only on landing page
 
   return (
     <div className="App" key={user ? user.uid : "nouser"}>

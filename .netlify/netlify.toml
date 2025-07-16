@@ -8,7 +8,7 @@ publish = "/Users/nihilnambiar/dream-dive/build"
 publishOrigin = "ui"
 commandOrigin = "ui"
 command = "npm run build"
-functions = "netlify/functions"
+functions = "/Users/nihilnambiar/dream-dive/netlify/functions"
 
 [build.environment]
 
@@ -25,7 +25,6 @@ functions = "netlify/functions"
 [build.services]
 
 [functions]
-directory = "netlify/functions"
 
 [functions."*"]
 

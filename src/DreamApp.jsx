@@ -636,43 +636,84 @@ export default function DreamApp() {
             <style>{`
               .shifting-gradient-border {
                 position: relative;
-                background: #5e3696;
+                background: rgba(80, 40, 160, 0.82);
                 color: #f3f4f6;
-                border-radius: 0.75rem;
+                border-radius: 1.2rem;
                 overflow: hidden;
                 border: none;
+                box-shadow: 0 4px 32px 0 rgba(120,120,255,0.18), 0 2px 16px 0 rgba(120,120,255,0.10) inset;
+                transition: box-shadow 0.2s, filter 0.2s, transform 0.2s;
+                backdrop-filter: blur(12px) saturate(1.2);
+                WebkitBackdropFilter: blur(12px) saturate(1.2);
               }
               .shifting-gradient-border::before {
                 content: '';
                 position: absolute;
                 inset: -2px;
                 z-index: 0;
-                border-radius: 0.75rem;
-                background: linear-gradient(90deg, #ff00cc, #333399, #ffcc00, #00ffcc, #ff00cc);
+                border-radius: 1.2rem;
+                background: linear-gradient(90deg, #ffb6ff, #b28dff, #6ec3f4, #f9f871, #ffb6ff);
                 background-size: 400%;
                 animation: gradient-shift 4s linear infinite;
+                filter: blur(1.5px) brightness(1.1);
+                pointer-events: none;
               }
               .shifting-gradient-border::after {
                 content: '';
                 position: absolute;
                 inset: 2px;
                 z-index: 1;
-                border-radius: 0.65rem;
-                background: #5e3696;
+                border-radius: 1rem;
+                background: rgba(80, 40, 160, 0.92);
+                box-shadow: 0 2px 12px 0 rgba(120,120,255,0.10) inset;
+                backdrop-filter: blur(8px) saturate(1.1);
+                WebkitBackdropFilter: blur(8px) saturate(1.1);
+                pointer-events: none;
               }
               @keyframes gradient-shift {
                 0% { background-position: 0% 50%; }
                 50% { background-position: 100% 50%; }
                 100% { background-position: 0% 50%; }
               }
+              .dream-btn-content {
+                position: relative;
+                z-index: 10;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.7em;
+                font-size: 1.25rem;
+                font-weight: 700;
+                letter-spacing: 0.01em;
+                color: #fff;
+                text-shadow: 0 2px 8px #a78bfa, 0 1px 2px #0002;
+                transition: color 0.2s;
+              }
+              .shifting-gradient-border:active {
+                filter: brightness(1.08) drop-shadow(0 0 12px #b28dff);
+                transform: scale(0.98);
+              }
+              .shifting-gradient-border:not(:disabled):hover {
+                box-shadow: 0 6px 36px 0 #b28dff55, 0 2px 16px 0 #a78bfa22 inset;
+                filter: brightness(1.08) drop-shadow(0 0 16px #b28dff);
+                transform: scale(1.025);
+              }
+              .shifting-gradient-border:disabled {
+                opacity: 0.6;
+                filter: grayscale(0.2) brightness(0.9);
+                cursor: not-allowed;
+              }
             `}</style>
             <button
               type="submit"
-              className="w-full py-3 text-lg font-semibold shifting-gradient-border mt-2"
+              className="w-full py-4 shifting-gradient-border mt-2 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-offset-2 transition-all duration-200"
+              style={{letterSpacing: '0.01em', position: 'relative'}}
               disabled={loading || !dream}
-              style={{letterSpacing: '0.01em'}}
             >
-              <span className="relative z-10">{loading ? "Interpreting..." : "Interpret Dream"}</span>
+              <span className="dream-btn-content">
+                <Sparkles className="w-6 h-6 text-yellow-200 drop-shadow animate-flicker" />
+                {loading ? "Interpreting..." : "Interpret Dream"}
+              </span>
             </button>
             {error && <div className="text-red-500 text-lg font-semibold text-center mt-2">{error}</div>}
           </form>

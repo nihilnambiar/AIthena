@@ -106,10 +106,11 @@ const PremiumBadge = ({ size = "medium" }) => {
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            className="absolute right-full top-1/2 transform -translate-y-1/2 mr-3 px-4 py-2 bg-gradient-to-br from-white/30 to-purple-200/40 text-purple-900 text-sm rounded-xl shadow-2xl border border-white/30 backdrop-blur-xl font-bold pointer-events-none max-w-xs z-[100] drop-shadow-xl text-center"
-            initial={{ opacity: 0, x: 10, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 10, scale: 0.95 }}
+            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-4 py-2 bg-gradient-to-br from-white/30 to-purple-200/40 text-purple-900 text-sm rounded-xl shadow-2xl border border-white/30 backdrop-blur-xl font-bold pointer-events-none max-w-xs z-[100] drop-shadow-xl text-center break-words"
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            style={{ whiteSpace: 'pre-line', wordBreak: 'break-word', minWidth: '120px' }}
           >
             Premium User
           </motion.div>

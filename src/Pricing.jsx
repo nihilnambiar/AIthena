@@ -83,7 +83,7 @@ const Pricing = () => {
                 <div className="text-center mb-8">
                   <h2 className="text-3xl font-bold mb-4 text-white">Free Plan</h2>
                   <div className="flex items-end justify-center gap-2 mb-6">
-                    <span className="text-6xl font-bold text-white">$0</span>
+                    <span className="text-6xl font-bold text-white">₹0</span>
                     <span className="text-xl text-white/60 mb-2">/month</span>
                   </div>
                   <p className="text-white/80 mb-6">Perfect for getting started with dream interpretation</p>
@@ -142,7 +142,7 @@ const Pricing = () => {
                   <div className="space-y-4 mb-6">
                     <div className="bg-white/10 rounded-xl p-4">
                       <div className="flex items-end justify-center gap-2 mb-2">
-                        <span className="text-4xl font-bold text-white">$10</span>
+                        <span className="text-4xl font-bold text-white">₹799</span>
                         <span className="text-lg text-white/60 mb-1">/month</span>
                       </div>
                       <p className="text-white/80 text-sm">Billed monthly</p>
@@ -150,11 +150,11 @@ const Pricing = () => {
                     
                     <div className="bg-gradient-to-r from-green-500/20 to-green-600/20 rounded-xl p-4 border border-green-500/30">
                       <div className="flex items-end justify-center gap-2 mb-2">
-                        <span className="text-4xl font-bold text-green-400">$7</span>
+                        <span className="text-4xl font-bold text-green-400">₹599</span>
                         <span className="text-lg text-white/60 mb-1">/month</span>
                       </div>
-                      <p className="text-white/80 text-sm">Billed annually at $84</p>
-                      <p className="text-green-400 text-sm font-semibold">Save $36/year!</p>
+                      <p className="text-white/80 text-sm">Billed annually at ₹7,188</p>
+                      <p className="text-green-400 text-sm font-semibold">Save ₹2,400/year vs monthly!</p>
                     </div>
                   </div>
 

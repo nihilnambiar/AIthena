@@ -51,8 +51,31 @@ export default function SharedDreamLanding() {
     if (!dream) return;
     setTypedDream("");
     setTypedInterp("");
-    setTypedDream(dream.text || "");
-    setTypedInterp(dream.interpretation || "");
+    // Animate dream text
+    let i = 1;
+    const dreamText = dream.text || "";
+    const interpText = dream.interpretation || "";
+    const dreamInterval = setInterval(() => {
+      setTypedDream(dreamText.substring(0, i));
+      i++;
+      if (i > dreamText.length) {
+        clearInterval(dreamInterval);
+        // After a short pause, animate interpretation
+        setTimeout(() => {
+          let j = 1;
+          const interpInterval = setInterval(() => {
+            setTypedInterp(interpText.substring(0, j));
+            j++;
+            if (j > interpText.length) {
+              clearInterval(interpInterval);
+            }
+          }, 30);
+        }, 500);
+      }
+    }, 40);
+    return () => {
+      clearInterval(dreamInterval);
+    };
   }, [dream]);
 
   return (
@@ -85,7 +108,7 @@ export default function SharedDreamLanding() {
                 {typedDream}
               </div>
               <p className="text-lg font-semibold text-white mt-6">
-                Mood: {dream.mood ? dream.mood : "Unknown"}
+                Mood: {dream.moodEmoji ? `${dream.moodEmoji} ` : ''}{dream.mood || "Unknown"}
               </p>
               <div className="p-4 mt-3 rounded-xl border-2 border-purple-400 bg-purple-600/40 text-white text-base min-h-[5rem] whitespace-pre-line text-lg">
                 <span className="font-bold">Interpretation:</span> {typedInterp}
