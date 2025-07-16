@@ -1,9 +1,9 @@
+# Sitemap - serve directly without redirect
+/sitemap.xml /sitemap.xml 200
+
 # Google Search Console verification files
 /google0e8abb4c40ff2a80.html /google0e8abb4c40ff2a80.html 200
 /googleDwtL9P40zsplQlyvYz17UasVkTu3kDJHGxFuUopmqok.html /googleDwtL9P40zsplQlyvYz17UasVkTu3kDJHGxFuUopmqok.html 200
 
-# Sitemap
-/sitemap.xml /sitemap.xml 200
-
-# Handle React Router
+# Handle React Router - but exclude sitemap and verification files
 /*    /index.html   200 
