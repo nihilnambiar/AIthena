@@ -1,6 +1,6 @@
 # DreamDive
 
-SEO redeploy trigger: Fix Netlify sitemap.xml serving issue.
+SEO redeploy trigger: Fix Netlify sitemap.xml serving issue - FINAL DEPLOY.
 
 # Getting Started with Create React App
 
