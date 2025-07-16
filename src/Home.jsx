@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import SplashScreen from "./SplashScreen.jsx";
 import FloatingFeedbackButton from "./FloatingFeedbackButton.jsx";
+import SEOHead from "./components/SEOHead.jsx";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -139,89 +140,97 @@ const Home = () => {
   const demo = demoData[index];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-black text-white flex flex-col">
-      <div className="flex-1 flex flex-col items-center justify-center px-4 w-full max-w-xl mx-auto">
-        <div className="text-center">
-          <h1 className="text-5xl font-extrabold mb-2">🌙 DreamDive</h1>
-          <p className="text-xl text-white/80 mb-2">Deep Dive Into Your Dreams</p>
-          <style>{`
-            @keyframes login-gradient {
-              0% { filter: hue-rotate(0deg) brightness(1); }
-              50% { filter: hue-rotate(30deg) brightness(1.1); }
-              100% { filter: hue-rotate(0deg) brightness(1); }
-            }
-            .animate-login-gradient {
-              animation: login-gradient 16s ease-in-out infinite;
-            }
-            @keyframes login-aurora {
-              0%, 100% { transform: translateX(-50%) scaleY(1) skewX(-8deg); opacity: 0.4; }
-              50% { transform: translateX(-48%) scaleY(1.2) skewX(-12deg); opacity: 0.6; }
-            }
-            .animate-login-aurora {
-              animation: login-aurora 12s ease-in-out infinite;
-            }
-            @keyframes login-aurora2 {
-              0%, 100% { transform: translateX(-50%) scaleY(1) skewX(8deg); opacity: 0.3; }
-              50% { transform: translateX(-52%) scaleY(1.1) skewX(12deg); opacity: 0.5; }
-            }
-            .animate-login-aurora2 {
-              animation: login-aurora2 18s ease-in-out infinite;
-            }
-            .shifting-gradient-border {
-              position: relative;
-              background: #5e3696;
-              color: #f3f4f6;
-              border-radius: 0.75rem;
-              overflow: hidden;
-              border: none;
-            }
-            .shifting-gradient-border::before {
-              content: '';
-              position: absolute;
-              inset: -2px;
-              z-index: 0;
-              border-radius: 0.75rem;
-              background: linear-gradient(90deg, #ff00cc, #333399, #ffcc00, #00ffcc, #ff00cc);
-              background-size: 400%;
-              animation: gradient-shift 4s linear infinite;
-            }
-            .shifting-gradient-border::after {
-              content: '';
-              position: absolute;
-              inset: 2px;
-              z-index: 1;
-              border-radius: 0.65rem;
-              background: #5e3696;
-            }
-            @keyframes gradient-shift {
-              0% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-              100% { background-position: 0% 50%; }
-            }
-          `}</style>
-          <button
-            onClick={handleStartDreaming}
-            className="relative px-6 py-3 text-lg font-semibold shifting-gradient-border"
-          >
-            <span className="relative z-10">Start Dreaming</span>
-          </button>
-        </div>
+    <>
+      <SEOHead 
+        title="DreamDive - AI-Powered Dream Journal & Interpretation App"
+        description="Transform your dreams into insights with DreamDive. AI-powered dream journaling, interpretation, and analysis. Track your dreams, understand their meaning, and discover patterns in your subconscious mind."
+        keywords="dream journal, dream interpretation, AI dreams, dream analysis, dream tracking, lucid dreaming, dream meaning, dream app, dream diary, subconscious mind, dream symbols, dream psychology"
+        url="https://thedreamdive.com"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-black text-white flex flex-col">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 w-full max-w-xl mx-auto">
+          <div className="text-center">
+            <h1 className="text-5xl font-extrabold mb-2">🌙 DreamDive</h1>
+            <p className="text-xl text-white/80 mb-2">Deep Dive Into Your Dreams</p>
+            <style>{`
+              @keyframes login-gradient {
+                0% { filter: hue-rotate(0deg) brightness(1); }
+                50% { filter: hue-rotate(30deg) brightness(1.1); }
+                100% { filter: hue-rotate(0deg) brightness(1); }
+              }
+              .animate-login-gradient {
+                animation: login-gradient 16s ease-in-out infinite;
+              }
+              @keyframes login-aurora {
+                0%, 100% { transform: translateX(-50%) scaleY(1) skewX(-8deg); opacity: 0.4; }
+                50% { transform: translateX(-48%) scaleY(1.2) skewX(-12deg); opacity: 0.6; }
+              }
+              .animate-login-aurora {
+                animation: login-aurora 12s ease-in-out infinite;
+              }
+              @keyframes login-aurora2 {
+                0%, 100% { transform: translateX(-50%) scaleY(1) skewX(8deg); opacity: 0.3; }
+                50% { transform: translateX(-52%) scaleY(1.1) skewX(12deg); opacity: 0.5; }
+              }
+              .animate-login-aurora2 {
+                animation: login-aurora2 18s ease-in-out infinite;
+              }
+              .shifting-gradient-border {
+                position: relative;
+                background: #5e3696;
+                color: #f3f4f6;
+                border-radius: 0.75rem;
+                overflow: hidden;
+                border: none;
+              }
+              .shifting-gradient-border::before {
+                content: '';
+                position: absolute;
+                inset: -2px;
+                z-index: 0;
+                border-radius: 0.75rem;
+                background: linear-gradient(90deg, #ff00cc, #333399, #ffcc00, #00ffcc, #ff00cc);
+                background-size: 400%;
+                animation: gradient-shift 4s linear infinite;
+              }
+              .shifting-gradient-border::after {
+                content: '';
+                position: absolute;
+                inset: 2px;
+                z-index: 1;
+                border-radius: 0.65rem;
+                background: #5e3696;
+              }
+              @keyframes gradient-shift {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+              }
+            `}</style>
+            <button
+              onClick={handleStartDreaming}
+              className="relative px-6 py-3 text-lg font-semibold shifting-gradient-border"
+            >
+              <span className="relative z-10">Start Dreaming</span>
+            </button>
+          </div>
 
-        <div className="mt-10 bg-white/10 backdrop-blur-md p-10 rounded-3xl shadow-2xl max-w-2xl w-full">
-          <p className="text-lg font-semibold text-white mb-2">Dream:</p>
-          <div className="p-4 rounded-xl bg-white/10 border border-white/20 text-base text-white min-h-[5rem] whitespace-pre-line text-lg">
-            {typedDream}
-          </div>
-          <p className="text-lg font-semibold text-white mt-6">
-            Mood: {demo ? `${demo.mood.emoji} ${demo.mood.label}` : ""}
-          </p>
-          <div className="p-4 mt-3 rounded-xl border-2 border-purple-400 bg-purple-600/40 text-white text-base min-h-[5rem] whitespace-pre-line text-lg">
-            <span className="font-bold">Interpretation:</span> {typedInterpretation}
+          <div className="mt-10 bg-white/10 backdrop-blur-md p-10 rounded-3xl shadow-2xl max-w-2xl w-full">
+            <p className="text-lg font-semibold text-white mb-2">Dream:</p>
+            <div className="p-4 rounded-xl bg-white/10 border border-white/20 text-base text-white min-h-[5rem] whitespace-pre-line text-lg">
+              {typedDream}
+            </div>
+            <p className="text-lg font-semibold text-white mt-6">
+              Mood: {demo ? `${demo.mood.emoji} ${demo.mood.label}` : ""}
+            </p>
+            <div className="p-4 mt-3 rounded-xl border-2 border-purple-400 bg-purple-600/40 text-white text-base min-h-[5rem] whitespace-pre-line text-lg">
+              <span className="font-bold">Interpretation:</span> {typedInterpretation}
+            </div>
           </div>
         </div>
+        <FloatingFeedbackButton />
       </div>
-      <FloatingFeedbackButton />
-    </div>
+    </>
   );
 };
 
