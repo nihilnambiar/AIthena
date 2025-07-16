@@ -1,9 +1,12 @@
-# Sitemap - serve directly without redirect
+# Serve sitemap.xml directly as XML
 /sitemap.xml /sitemap.xml 200
 
-# Google Search Console verification files
+# Serve Google verification files directly
 /google0e8abb4c40ff2a80.html /google0e8abb4c40ff2a80.html 200
 /googleDwtL9P40zsplQlyvYz17UasVkTu3kDJHGxFuUopmqok.html /googleDwtL9P40zsplQlyvYz17UasVkTu3kDJHGxFuUopmqok.html 200
 
-# Handle React Router - but exclude sitemap and verification files
+# Serve robots.txt directly
+/robots.txt /robots.txt 200
+
+# Handle all other routes with React Router
 /*    /index.html   200 

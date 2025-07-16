@@ -1,0 +1,32 @@
+[build]
+  publish = "build"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/google0e8abb4c40ff2a80.html"
+  to = "/google0e8abb4c40ff2a80.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/googleDwtL9P40zsplQlyvYz17UasVkTu3kDJHGxFuUopmqok.html"
+  to = "/googleDwtL9P40zsplQlyvYz17UasVkTu3kDJHGxFuUopmqok.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 
