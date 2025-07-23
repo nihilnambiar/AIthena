@@ -1,11 +1,10 @@
 [build]
   publish = "build"
   command = "npm run build"
-  functions = "netlify/functions"
 
 [[redirects]]
   from = "/sitemap.xml"
-  to = "/.netlify/functions/sitemap"
+  to = "/static-sitemap.xml"
   status = 200
   force = true
 
