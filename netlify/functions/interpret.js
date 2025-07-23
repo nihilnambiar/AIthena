@@ -8,6 +8,15 @@ exports.handler = async function(event, context) {
     };
   }
 
+  // Check if API key is available
+  if (!process.env.GROQ_API_KEY) {
+    console.error("GROQ_API_KEY is not set");
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'API key not configured. Please contact support.' })
+    };
+  }
+
   let body;
   try {
     body = JSON.parse(event.body);
@@ -58,13 +67,23 @@ exports.handler = async function(event, context) {
     }
     return {
       statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
       body: JSON.stringify({ interpretation: output })
     };
   } catch (error) {
     console.error("Groq SDK Error:", error.response?.data || error.message);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Something went wrong while interpreting your dream." })
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: JSON.stringify({ error: "Something went wrong while interpreting your dream. Please try again." })
     };
   }
 }; 
